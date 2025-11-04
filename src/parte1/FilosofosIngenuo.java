@@ -5,16 +5,15 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.locks.ReentrantLock;
 
 /**
- * Versão ingênua: pega esquerda depois direita.
- * Registra "pensando", "com fome" e "comendo" (limitado para evitar flood).
- * Pode travar; encerra após alguns segundos.
+ * Versão ingênua: pega esquerda e depois direita.
+ * Mostra "pensando", "com fome" e "comendo" (limitado) e encerra após alguns segundos.
  */
 public class FilosofosIngenuo {
     static final int N = 5;
     static final ReentrantLock[] forks = new ReentrantLock[N];
-    static volatile boolean someoneAte = false;
+    static volatile boolean alguemComeu = false;
 
-    // registra estados só nas 2 primeiras refeições de cada filósofo
+    // mostra estados só nas 2 primeiras refeições de cada filósofo
     static final int STATE_LOG_LIMIT = 2;
 
     public static void main(String[] args) throws Exception {
@@ -23,22 +22,22 @@ public class FilosofosIngenuo {
         ExecutorService pool = Executors.newFixedThreadPool(N);
         for (int p = 0; p < N; p++) {
             final int id = p;
-            pool.submit(() -> philosopher(id));
+            pool.submit(() -> filosofo(id));
         }
 
         // roda por alguns segundos e encerra
         Thread.sleep(6_000);
         pool.shutdownNow(); // sinaliza interrupção
-        // não precisa await aqui; as threads saem do loop ao acordarem do sleep
+        Thread.sleep(200);   // pequena espera para limpar a saída
 
-        if (!someoneAte) {
+        if (!alguemComeu) {
             System.out.println("[IMPASSE] Ninguém conseguiu comer neste intervalo.");
         } else {
             System.out.println("[OBS] Alguém comeu, mas o protocolo pode travar em outras execuções.");
         }
     }
 
-    static void philosopher(int id) {
+    static void filosofo(int id) {
         int left = id;
         int right = (id + 1) % N;
         int meals = 0;
@@ -50,14 +49,13 @@ public class FilosofosIngenuo {
             if (meals < STATE_LOG_LIMIT) System.out.println("P" + id + " com fome");
             forks[left].lock(); // pega o garfo da esquerda
             try {
-                // tenta pegar o garfo da direita sem bloquear (não lança InterruptedException)
+                // tenta pegar o garfo da direita sem bloquear
                 if (!forks[right].tryLock()) {
-                    // falhou: solta o esquerdo no finally e tenta de novo depois de um backoff
                     backoff();
                     continue;
                 }
                 try {
-                    someoneAte = true;
+                    alguemComeu = true;
                     System.out.println("P" + id + " comendo");
                     dormir(150);
                     meals++;

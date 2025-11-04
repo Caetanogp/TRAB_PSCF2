@@ -2,7 +2,7 @@ package parte3;
 
 /**
  * Deadlock clássico: T1 usa A->B e T2 usa B->A.
- * Agora, ao detectar deadlock, o programa encerra com System.exit(0).
+ * Ao detectar deadlock, encerra com System.exit(0) para a demo não ficar presa.
  */
 public class DeadlockDemo {
     static final Object LOCK_A = new Object();
@@ -32,16 +32,13 @@ public class DeadlockDemo {
         t1.start();
         t2.start();
 
-        // espera um pouco e verifica se ambos continuam vivos (presos)
+        // espera um pouco e checa se ambos ficaram presos
         Thread.sleep(2000);
         if (t1.isAlive() && t2.isAlive()) {
             System.out.println("[DEADLOCK] As duas threads ficaram esperando.");
-            // não adianta interromper: synchronized não libera.
-            // encerra explicitamente o processo para a demo não ficar presa.
-            System.exit(0); // use 0 (sucesso) ou 1 se preferir sinalizar erro
+            System.exit(0);
         }
 
-        // se por algum motivo não travou, termina normalmente
         t1.join();
         t2.join();
         System.out.println("[OK] Sem deadlock nesta execução.");

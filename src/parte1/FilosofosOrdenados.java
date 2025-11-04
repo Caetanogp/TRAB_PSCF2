@@ -5,14 +5,18 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.ReentrantLock;
 
-public class FilósofosOrdenados {
+/**
+ * Ordem global: pega primeiro o garfo de menor índice e depois o de maior.
+ * Assim não fecha ciclo e não trava.
+ */
+public class FilosofosOrdenados {
     static final int N = 5;
     static final ReentrantLock[] forks = new ReentrantLock[N];
     static final int MAX_MEALS_PER_PHIL = 6;
-    static final int STATE_LOG_LIMIT = 2; // registra estados só nas 2 primeiras refeições
+    static final int STATE_LOG_LIMIT = 2; // mostra estados nas 2 primeiras refeições
 
     public static void main(String[] args) throws Exception {
-        for (int i = 0; i < N; i++) forks[i] = new ReentrantLock(true);
+        for (int i = 0; i < N; i++) forks[i] = new ReentrantLock(true); // justo ajuda a não favorecer sempre os mesmos
 
         ExecutorService pool = Executors.newFixedThreadPool(N);
         for (int p = 0; p < N; p++) {
