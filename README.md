@@ -57,6 +57,7 @@ Loop:
   liberar(right)
   liberar(left)
   estado[p] <- "pensando"
+```
 Justiça/progresso: locks “justos” (fila) ou um árbitro (“garçom”) ajudam a reduzir inanição quando há muita competição.
 
 Relação com Coffman (por que não trava)
