@@ -1,0 +1,38 @@
+# IntelliJ / JetBrains
+.idea/
+*.iml
+
+# Saídas de compilação
+out/
+build/
+target/
+bin/
+*.class
+
+# Gradle (se usar)
+.gradle/
+
+# Maven (se usar)
+.settings/
+.classpath
+.project
+
+# IDEs/editores
+.vscode/
+.nb-gradle/
+nbbuild/
+dist/
+nbdist/
+nbproject/private/
+.apt_generated
+.factorypath
+.springBeans
+.sts4-cache
+
+# SO / temporários
+.DS_Store
+Thumbs.db
+
+# Logs e temporários genéricos
+*.log
+*.tmp
