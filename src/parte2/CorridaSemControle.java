@@ -16,7 +16,7 @@ public class CorridaSemControle {
         ExecutorService pool = Executors.newFixedThreadPool(T);
         Runnable r = () -> {
             for (int i = 0; i < M; i++) {
-                count++; // não é atômico
+                count++;
             }
         };
 
