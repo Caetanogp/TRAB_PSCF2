@@ -66,6 +66,7 @@ No ingênuo, as 4 condições podem aparecer juntas: exclusão mútua, manter-e-
 A solução impõe ordem global nos garfos (sempre pegar o de menor índice antes do maior), então quebra a espera circular. Assim, o impasse não ocorre.
 
 Mapa das condições de Coffman (DeadlockDemo)
+
 Exclusão mútua: cada lock (A ou B) só pode ser segurado por uma thread por vez.
 
 Manter-e-esperar: T1 segura A e espera por B; T2 segura B e espera por A.
@@ -76,10 +77,12 @@ Espera circular: T1 → B e T2 → A formam um ciclo (A→B e B→A).
 A correção A→B remove a espera circular.
 
 Observação de memória (Semaphore)
+
 Em Java, release() do semáforo estabelece um happens-before com o próximo acquire().
 Isso garante visibilidade das atualizações feitas na seção crítica entre threads.
 
-Resultados esperados (resumo rápido)
+Retornos 
+
 parte1.FilosofosIngenuo → imprime estados (pensando/com fome/comendo) e termina com:
 
 [OBS] Alguém comeu, mas o protocolo pode travar em outras execuções. ou
