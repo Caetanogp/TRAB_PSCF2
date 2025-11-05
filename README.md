@@ -61,6 +61,7 @@ Loop:
 Justiça/progresso: locks “justos” (fila) ou um árbitro (“garçom”) ajudam a reduzir inanição quando há muita competição.
 
 Relação com Coffman (por que não trava)
+
 No ingênuo, as 4 condições podem aparecer juntas: exclusão mútua, manter-e-esperar, não-preempção e espera circular.
 A solução impõe ordem global nos garfos (sempre pegar o de menor índice antes do maior), então quebra a espera circular. Assim, o impasse não ocorre.
 
