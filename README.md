@@ -36,9 +36,9 @@ java -cp out parte2.CorridaComSemaphore
 # Parte 3
 java -cp out parte3.DeadlockDemo
 java -cp out parte3.DeadlockFixed
+
 Pseudocódigo — hierarquia de recursos (sem Java)
-css
-Copiar código
+
 Dados:
 - N = 5 filósofos
 - Garfos 0..N-1 (garfo i entre filósofos i e (i+1) mod N)
