@@ -98,4 +98,4 @@ parte3.DeadlockDemo → mostra travamento e encerra a execução (mensagem de de
 parte3.DeadlockFixed → [OK] Rodou sem deadlock com ordem A->B.
 
 Link do vídeo
-(cole aqui o link do vídeo de até 10 min mostrando execução e explicação rápida)
+https://www.youtube.com/watch?v=ro2PzaoErrs
